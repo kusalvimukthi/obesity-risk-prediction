@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesity Risk Prediction</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Obesity Risk Prediction</h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <form action="/predict" method="post" class="border p-4 bg-light shadow-sm rounded">
+                    <!-- Categorical inputs -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Gender">Gender:</label>
+                                <select class="form-control" name="Gender" required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="family_history_with_overweight">Family History with Overweight:</label>
+                                <select class="form-control" name="family_history_with_overweight" required>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="FAVC">Frequent Consumption of High-Calorie Food (FAVC):</label>
+                                <select class="form-control" name="FAVC" required>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="CAEC">Consumption of Food Between Meals (CAEC):</label>
+                                <select class="form-control" name="CAEC" required>
+                                    <option value="no">No</option>
+                                    <option value="Sometimes">Sometimes</option>
+                                    <option value="Frequently">Frequently</option>
+                                    <option value="Always">Always</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="SMOKE">Do you smoke? (SMOKE):</label>
+                                <select class="form-control" name="SMOKE" required>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="SCC">Do you monitor your calorie consumption? (SCC):</label>
+                                <select class="form-control" name="SCC" required>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="CALC">Consumption of Alcohol (CALC):</label>
+                                <select class="form-control" name="CALC" required>
+                                    <option value="no">No</option>
+                                    <option value="Sometimes">Sometimes</option>
+                                    <option value="Frequently">Frequently</option>
+                                    <option value="Always">Always</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="MTRANS">Mode of Transportation (MTRANS):</label>
+                                <select class="form-control" name="MTRANS" required>
+                                    <option value="Automobile">Automobile</option>
+                                    <option value="Bike">Bike</option>
+                                    <option value="Motorbike">Motorbike</option>
+                                    <option value="Public_Transportation">Public Transportation</option>
+                                    <option value="Walking">Walking</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Numerical inputs -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Age">Age:</label>
+                                <input type="number" class="form-control" name="Age" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Height">Height (in meters):</label>
+                                <input type="number" step="0.01" class="form-control" name="Height" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Weight">Weight (in kg):</label>
+                                <input type="number" step="0.1" class="form-control" name="Weight" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="FCVC">Frequency of Consumption of Vegetables (FCVC):</label>
+                                <input type="number" step="0.1" class="form-control" name="FCVC" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="NCP">Number of Main Meals (NCP):</label>
+                                <input type="number" step="0.1" class="form-control" name="NCP" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="CH2O">Consumption of Water (CH2O):</label>
+                                <input type="number" step="0.1" class="form-control" name="CH2O" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="FAF">Physical Activity Frequency (FAF):</label>
+                                <input type="number" step="0.1" class="form-control" name="FAF" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="TUE">Time Using Technology Devices (TUE):</label>
+                                <input type="number" step="0.1" class="form-control" name="TUE" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Predict</button>
+                </form>
+
+                <!-- Display prediction result and health message -->
+                {% if prediction_text %}
+                <div class="alert alert-info mt-4" role="alert">
+                    <h4>{{ prediction_text }}</h4>
+                    {% if health_message %}
+                    <p>{{ health_message }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional for enhanced interactivity) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
